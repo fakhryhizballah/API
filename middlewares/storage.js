@@ -7,7 +7,7 @@ const storage = multer.diskStorage({
     },
 
     filename: function (req, file, callback) {
-        const namaFile = Date.now() + path.extname(file.originalname);
+        const namaFile = Date.now() + !path.extname(file.originalname);
         callback(null, namaFile);
     }
 });
@@ -15,7 +15,6 @@ const storage = multer.diskStorage({
 const upload = multer({
     storage: storage,
     fileFilter: (req, file, callback) => {
-        console.log(file.mimetype);
         if (file.mimetype == 'image/png' || file.mimetype == 'image/jpg' || file.mimetype == 'image/jpeg' || file.mimetype == 'image/svg+xml') {
             callback(null, true);
         } else {
