@@ -1,8 +1,9 @@
+require('dotenv').config();
 module.exports = {
     single: async (req, res) => {
         console.log(req);
         try {
-            const imageUrl = req.protocol + '://' + req.get('host') + '/image/' + req.file.filename;
+            const imageUrl = process.env.baseURL + 'image/' + req.file.filename;
 
             const image = ({
                 title: req.file.filename,

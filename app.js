@@ -1,5 +1,6 @@
 const express = require('express');
 const app = express();
+require('dotenv').config();
 const {
     PORT = 3110
 } = process.env;
@@ -7,7 +8,9 @@ const {
 const morgan = require('morgan');
 app.use(morgan('dev'));
 app.use(express.json());
-app.use("/img", express.static("public/img"));
+app.use("/image", express.static("public/image"));
+app.use("/img/icon", express.static("public/img/icon"));
+app.use("/img", express.static("public/img/cdn"));
 
 // welcome
 app.get('/', (req, res) => {
