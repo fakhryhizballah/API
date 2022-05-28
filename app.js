@@ -16,7 +16,7 @@ app.use("/img", express.static("public/img/cdn"));
 app.get('/', (req, res) => {
     res.json({
         status: true,
-        message: 'welcome to learn how to handling data!',
+        message: 'welcome to Content Delivery Network Spairum',
         data: null
     });
 });
