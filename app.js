@@ -1,5 +1,7 @@
 const express = require('express');
 const app = express();
+var favicon = require('serve-favicon');
+app.use(favicon(__dirname + '/public/favicon.ico'));
 require('dotenv').config();
 const {
     PORT = 3110
