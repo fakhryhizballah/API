@@ -16,6 +16,7 @@
     "express-ga-middleware": "^0.1.6",
     "morgan": "^1.10.0",
     "multer": "^1.4.4",
+    "node-fetch": "^2.6.7",
     "path": "^0.12.7",
     "serve-favicon": "^2.5.0"
   }

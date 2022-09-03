@@ -1,4 +1,6 @@
 const express = require('express');
+const fetch = require('node-fetch');
+// import fetch from 'node-fetch';
 // const expressGa = require('express-ga-middleware');
 const app = express();
 var favicon = require('serve-favicon');
@@ -21,6 +23,8 @@ app.use("/imgs", async (req, res, next) => {
     // console.log(req.hostname);
     console.log(req.ip);
     console.log(req.path);
+    console.log(req.hostname);
+    console.log(req.headers['X-Real-IP']);
     try {
         // trackEvent('image', 'image', 'image', 'image');
         trackEvent('Category', 'Action', req.path, '55', req.ip);
