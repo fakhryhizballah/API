@@ -25,6 +25,9 @@ app.use("/imgs", async (req, res, next) => {
     console.log(req.path);
     console.log(req.hostname);
     console.log(req.headers['X-Real-IP']);
+    console.log(req.headers['X-Forwarded-For']);
+    console.log(req.headers['X-Forwarded-Host']);
+    console.log(req.headers['user-agent']);
     try {
         // trackEvent('image', 'image', 'image', 'image');
         trackEvent('Category', 'Action', req.path, '55', req.ip);
