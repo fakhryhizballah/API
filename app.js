@@ -26,9 +26,8 @@ app.use("/imgs", async (req, res, next) => {
     console.log(req.hostname);
     console.log(req.headers['user-agent']);
     try {
-        // trackEvent('image', 'image', 'image', 'image');
-        // const trackEvent = (category, action, label, value, document_path) =>
-        trackEvent('Category', 'Action', 'Event Label', '55', req.ip);
+        console.log(await trackEvent(req.ip, 'Category', 'Action', 'Event Label', '55', req.path));
+
         // next();
         console.log('success');
     } catch (err) {
@@ -63,7 +62,7 @@ app.listen(PORT, () => {
     console.log('listening on port', PORT);
     console.log(process.env.baseURL);
 });
-const trackEvent = (category, action, label, value, document_path) => {
+const trackEvent = (cid, category, action, label, value, document_path) => {
     const data = {
         // API Version.
         v: '1',
@@ -71,7 +70,8 @@ const trackEvent = (category, action, label, value, document_path) => {
         tid: GA_TRACKING_ID,
         // Anonymous Client Identifier. Ideally, this should be a UUID that
         // is associated with particular user, device, or browser instance.
-        cid: '555',
+        // cid: '555',
+        cid: cid,
         // Event hit type.
         t: 'pageview',
         // Event category.
