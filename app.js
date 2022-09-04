@@ -24,13 +24,11 @@ app.use("/imgs", async (req, res, next) => {
     console.log(req.ip);
     console.log(req.path);
     console.log(req.hostname);
-    console.log(req.headers['X-Real-IP']);
-    console.log(req.headers['X-Forwarded-For']);
-    console.log(req.headers['X-Forwarded-Host']);
     console.log(req.headers['user-agent']);
     try {
         // trackEvent('image', 'image', 'image', 'image');
-        trackEvent('Category', 'Action', req.path, '55', req.ip);
+        // const trackEvent = (category, action, label, value, document_path) =>
+        trackEvent('Category', 'Action', 'Event Label', '55', req.ip);
         // next();
         console.log('success');
     } catch (err) {
@@ -65,7 +63,7 @@ app.listen(PORT, () => {
     console.log('listening on port', PORT);
     console.log(process.env.baseURL);
 });
-const trackEvent = (category, action, label, value, cid) => {
+const trackEvent = (category, action, label, value, document_path) => {
     const data = {
         // API Version.
         v: '1',
@@ -73,8 +71,7 @@ const trackEvent = (category, action, label, value, cid) => {
         tid: GA_TRACKING_ID,
         // Anonymous Client Identifier. Ideally, this should be a UUID that
         // is associated with particular user, device, or browser instance.
-        // cid: '555',
-        cid: cid,
+        cid: '555',
         // Event hit type.
         t: 'pageview',
         // Event category.
@@ -85,9 +82,15 @@ const trackEvent = (category, action, label, value, cid) => {
         el: label,
         // Event value.
         ev: value,
+        // Document path.
+        dp: document_path
     };
 
-    return fetch('http://www.google-analytics.com/debug/collect', {
+    return fetch('http://www.google-analytics.com/collect', {
         params: data,
+        headers: {
+            'user-agent':
+                'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/51.0.2704.103 Safari/537.36',
+        },
     });
 };
