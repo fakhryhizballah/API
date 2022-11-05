@@ -3,10 +3,13 @@ module.exports = {
     single: async (req, res) => {
         try {
             const imageUrl = process.env.baseURL + 'image/' + req.file.filename;
+            const imageWebpUrl = process.env.baseURL + 'image/' + req.file.filename.split('.')[0] + ".webp";
 
             const image = ({
                 title: req.file.filename,
-                url: imageUrl
+                url: imageWebpUrl,
+                size: req.file.size,
+                jpg: imageUrl,
             });
 
             res.status(200).json({
