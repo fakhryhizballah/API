@@ -17,7 +17,7 @@ app.enable('trust proxy');
 // app.use(expressGa('G-MRYF58C8K7'));
 
 Sentry.init({
-    dsn: "https://8a310ba93ef34cd5abb134affd104f7b@o1253817.ingest.sentry.io/4504430259077120",
+    dsn: process.env.SENTRY_DSN,
 
     // Set tracesSampleRate to 1.0 to capture 100%
     // of transactions for performance monitoring.
@@ -81,7 +81,8 @@ app.use(function onError(err, req, res, next) {
     // and optionally displayed to the user for support.
     Sentry.captureException(err);
     // Sentry.captureEvent(err.message);
-    res.status(500).json({
+    Sentry.captureMessage(err.message, "info", err);
+    res.status(400).json({
         status: false,
         message: err.message,
         data: null
