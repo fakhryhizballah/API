@@ -3,6 +3,7 @@ const analytic = require('./middlewares/analytics');
 const { transaction } = require('./middlewares/sentry');
 const Sentry = require('@sentry/node');
 const Tracing = require("@sentry/tracing");
+const { ProfilingIntegration } = require("@sentry/profiling-node");
 const app = express();
 var favicon = require('serve-favicon');
 app.use(favicon(__dirname + '/public/favicon.ico'));
@@ -23,20 +24,26 @@ Sentry.init({
     // of transactions for performance monitoring.
     // We recommend adjusting this value in production
     integrations: [
+        // add profiling integration
+        new ProfilingIntegration(),
+
         // enable HTTP calls tracing
         new Sentry.Integrations.Http({ tracing: true }),
+
         // enable Express.js middleware tracing
         new Tracing.Integrations.Express({
             // to trace all requests to the default router
             app,
             // alternatively, you can specify the routes you want to trace:
             // router: someRouter,
+            router: ['/', '/api']
         }),
     ],
 
     // We recommend adjusting this value in production, or using tracesSampler
     // for finer control
     tracesSampleRate: 1.0,
+    profilesSampleRate: 1.0,
 });
 // app.use("/image", analytic.analytics, express.static("public/imagekit"));
 app.use("/image", transaction, express.static("public/imagekit"));
