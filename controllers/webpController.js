@@ -12,11 +12,12 @@ module.exports = {
             next();
 
         } catch (err) {
-            return res.status(400).json({
-                status: false,
-                message: err.message,
-                data: null
-            });
+            next(err);
+            // return res.status(400).json({
+            //     status: false,
+            //     message: err.message,
+            //     data: null
+            // });
         }
     },
 };
