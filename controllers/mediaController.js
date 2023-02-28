@@ -2,8 +2,9 @@ require('dotenv').config();
 module.exports = {
     single: async (req, res) => {
         try {
-            const imageUrl = process.env.baseURL + 'image/' + req.file.filename;
-            const imageWebpUrl = process.env.baseURL + 'image/' + req.file.filename.split('.')[0] + ".webp";
+            const baseURL = req.protocol + '://' + req.get('host') + '/';
+            const imageUrl = baseURL + 'image/' + req.file.filename;
+            const imageWebpUrl = baseURL + 'image/' + req.file.filename.split('.')[0] + ".webp";
 
             const image = ({
                 title: req.file.filename,
