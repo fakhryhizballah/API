@@ -1,16 +1,12 @@
+# IDE Files
 #-------------------------
-# Temporary folder
-#-------------------------
-/public/imagekit/*
-!/public/imagekit/spairum.png
-/node_modules
+/nbproject/
+.idea/*
 
-#-------------------------
-# Temporary Files
-#-------------------------
-package-lock.json
+## Sublime Text cache files
+*.tmlanguage.cache
+*.tmPreferences.cache
+*.stTheme.cache
+*.sublime-workspace
+*.sublime-project
 
-#-------------------------
-# Environment Variables
-#-------------------------
-.env
